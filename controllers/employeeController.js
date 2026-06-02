@@ -112,5 +112,18 @@ export const updateEmployee = async (req, res)=>{
 // Delete employee
 // DELETE /api/employees/:id
 export const deleteEmployee = async (req, res)=>{
+    try {
+        const { id } = req.params;
 
+        const employee = await Employee.findById(id)
+        if(!employee) return res.status(404).json({ error: "Employee not found"});
+
+        employee.isDeleted = true;
+        employee.employmentStatus = "INACTIVE";
+        await employee.save()
+        return res.json({ success: true });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to delete employee" });
+    }
 } 
