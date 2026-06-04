@@ -90,8 +90,13 @@ export const getLeaves = async (req, res) => {
 // PATCH /api/leaves/:id
 export const updateLeaveStatus = async (req, res) => {
     try {
-        
+        const { status } = req.body;
+        if(!["APPROVED", "REJECTED", "PENDING"].includes(status)){
+            return res.status(400).json({error: "Invalid status"});
+        }
+        const leave = await LeaveApplication.findByIdAndUpdate(re.params.id, {status}, {returnDocument: "after"})
+        return res.json({success: true, data: leave})
     } catch (error) {
-        
+        return res.status(500).json({error: "Failed"});
     }
 }
