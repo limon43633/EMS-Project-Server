@@ -3,7 +3,7 @@ import LeaveApplication from "../models/LeaveApplication.js";
 
 // Create leave
 // POST /api/leaves
-export const createLeaves = async (req, res) => {
+export const createLeave = async (req, res) => {
     try {
         const session = req.session;
         const employee = await Employee.findOne({userId: session.userId})
