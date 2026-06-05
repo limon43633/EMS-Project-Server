@@ -1,11 +1,11 @@
-import { Route } from "express";
+import { Router } from "express";
 import { protect, protectAdmin } from "../middleware/auth.js";
 import { createLeave, getLeaves, updateLeaveStatus } from "../controllers/leaveController.js";
 
 
 
 
-const leaveRouter = Route();
+const leaveRouter = Router();
 
 leaveRouter.post("/", protect, createLeave)
 leaveRouter.get("/", protect, getLeaves)
